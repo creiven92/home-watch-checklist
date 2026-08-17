@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Home Watch Checklist → PDF</title>
+<style>
+:root{--gold:#9a762d;--ink:#222;--bg:#f4f3ef;--line:#ddd8cc;--green:#dff2e6;--yellow:#fff3bf;--red:#f8d7da}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--gold);color:white;padding:16px 18px;position:sticky;top:0;z-index:10}
+header h1{font-size:21px;margin:0 0 3px} header p{font-size:12px;margin:0}
+main{max-width:1000px;margin:auto;padding:12px}
+.card{background:white;border:1px solid var(--line);border-radius:14px;padding:15px;margin:12px 0}
+h2{font-size:18px;color:#75591e;margin:0 0 10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{font-size:13px;font-weight:700;display:block;margin:0 0 5px}
+input,textarea,select{width:100%;font-size:16px;padding:10px;border:1px solid #cbc4b6;border-radius:9px;background:white}
+textarea{min-height:80px}
+.planRadio{display:none}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tabs label{padding:12px 5px;border:2px solid #d6cfbf;border-radius:10px;text-align:center;background:#faf9f6;margin:0}
+#planBasic:checked~.app .tabBasic,#planStandard:checked~.app .tabStandard,#planPremium:checked~.app .tabPremium,#planLuxury:checked~.app .tabLuxury{background:var(--gold);color:white;border-color:var(--gold)}
+.standardSec,.premiumSec,.luxurySec{display:none}
+#planStandard:checked~.app .standardSec,#planPremium:checked~.app .standardSec,#planLuxury:checked~.app .standardSec{display:block}
+#planPremium:checked~.app .premiumSec,#planLuxury:checked~.app .premiumSec{display:block}
+#planLuxury:checked~.app .luxurySec{display:block}
+.planText span{display:none}
+#planBasic:checked~.app .ptBasic,#planStandard:checked~.app .ptStandard,#planPremium:checked~.app .ptPremium,#planLuxury:checked~.app .ptLuxury{display:inline}
+.item{padding:13px 0;border-top:1px solid #ece7dc;break-inside:avoid}.item:first-child{border-top:0}
+.q{font-weight:700;font-size:15px;line-height:1.35;margin-bottom:9px}
+.opts{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:9px}
+.opts label{border:1px solid #cec6b8;border-radius:9px;padding:10px 4px;text-align:center;background:#fafafa;margin:0}
+.opts input{display:none}.choice{display:block;border-radius:7px;padding:4px}
+.ok:checked+.choice{background:var(--green)}.y:checked+.choice{background:var(--yellow)}.r:checked+.choice{background:var(--red)}.na:checked+.choice{background:#eee}
+.photos{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.photoBox{padding:9px;border:1px solid #e1dbcf;border-radius:9px;background:#faf9f6}
+.preview{display:none;margin-top:8px}.preview img{max-width:100%;max-height:260px;border-radius:8px;border:1px solid #ddd}
+.printResult{display:none}
+button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-weight:800;margin:8px 0}
+.primary{background:var(--gold);color:white}.secondary{background:#d9d3c6;color:#222}
+.note{font-size:12px;color:#666;line-height:1.45}
+@media(max-width:700px){.grid,.photos{grid-template-columns:1fr}.tabs{grid-template-columns:1fr 1fr}.opts{grid-template-columns:repeat(4,1fr)}main{padding:9px}}
+@media print{
+ body{background:white}
+ header{position:static;background:white;color:#111;border-bottom:2px solid #9a762d}
+ .noPrint,.tabs,.opts,.photoBox>label,.photoInput{display:none!important}
+ main{max-width:none;padding:0}
+ .card{border:0;border-radius:0;padding:7px 0;margin:0}
+ input,textarea,select{border:0;padding:0;font-size:11px;background:transparent;appearance:none;-webkit-appearance:none}
+ .printResult{display:block;font-size:11px;margin-bottom:4px}
+ .preview{display:block!important}
+ .preview img{max-height:210px}
+ .photoBox{border:0;background:white;padding:0}
+ .item{padding:8px 0;border-top:1px solid #ddd}
+ .q{font-size:12px}
+ h2{font-size:15px}
+ @page{size:A4;margin:11mm}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>HOME WATCH — CHECKLIST / REPORT</h1>
+<p>Καθαρή νέα φόρμα σε κάθε άνοιγμα • χωρίς μνήμη προηγούμενων επισκέψεων</p>
+</header>
+
+<input class="planRadio" type="radio" id="planBasic" name="plan" checked>
+<input class="planRadio" type="radio" id="planStandard" name="plan">
+<input class="planRadio" type="radio" id="planPremium" name="plan">
+<input class="planRadio" type="radio" id="planLuxury" name="plan">
+
+<div class="app"><main>
+<section class="card noPrint">
+<h2>1. Επιλογή Πακέτου</h2>
+<div class="tabs">
+<label class="tabBasic" for="planBasic">BASIC<br><small>~20'</small></label>
+<label class="tabStandard" for="planStandard">STANDARD<br><small>~30'</small></label>
+<label class="tabPremium" for="planPremium">PREMIUM<br><small>~40'</small></label>
+<label class="tabLuxury" for="planLuxury">LUXURY<br><small>Tailored</small></label>
+</div>
+</section>
+
+<section class="card">
+<h2>2. Στοιχεία Επίσκεψης</h2>
+<div class="grid">
+<div><label>Property ID / Όνομα</label><input id="property"></div>
+<div><label>Πακέτο</label><div class="planText"><span class="ptBasic">Basic</span><span class="ptStandard">Standard</span><span class="ptPremium">Premium</span><span class="ptLuxury">Luxury</span></div></div>
+<div><label>Υπάλληλος</label><input id="employee"></div>
+<div><label>Ημερομηνία</label><input id="date" type="date"></div>
+<div><label>Ώρα άφιξης</label><input id="arrival" type="time"></div>
+<div><label>Ώρα αναχώρησης</label><input id="departure" type="time"></div>
+</div>
+</section>
+
+<section class="card basicSec"><h2>3A. BASIC — Έλεγχοι</h2>
+<div class="item">
+  <div class="q">Εμφανή σημάδια παραβίασης, προσπάθειας εισόδου ή βανδαλισμού;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="b1" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="b1" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="b1" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="b1" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+<div class="item">
+  <div class="q">Κεντρική πόρτα / κλειδαριά / είσοδος χωρίς εμφανή ζημιά;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="b2" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="b2" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="b2" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="b2" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+<div class="item">
+  <div class="q">Ορατά παράθυρα / ρολά / παντζούρια κλειστά και χωρίς εμφανή θραύση;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="b3" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="b3" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="b3" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="b3" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+<div class="item">
+  <div class="q">Κατά την είσοδο υπάρχει ασυνήθιστη οσμή, εμφανές νερό ή ένδειξη μη εξουσιοδοτημένης εισόδου;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="b4" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="b4" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="b4" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="b4" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+<div class="item">
+  <div class="q">Alarm / security system σε σωστή εμφανή κατάσταση;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="b5" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="b5" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="b5" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="b5" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+<div class="item">
+  <div class="q">Εμφανή σημάδια υγρασίας, μούχλας ή νερού;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="b6" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="b6" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="b6" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="b6" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+<div class="item">
+  <div class="q">Άνοιξε επιλεγμένη βρύση και έγιναν flush οι τουαλέτες όπου προβλέπεται;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="b7" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="b7" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="b7" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="b7" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+<div class="item">
+  <div class="q">Εμφανές ηλεκτρικό πρόβλημα: μυρωδιά καμένου, ασυνήθιστος ήχος ή ζημιά;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="b8" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="b8" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="b8" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="b8" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div></section>
+<section class="card standardSec"><h2>3B. STANDARD — Πρόσθετοι Έλεγχοι</h2>
+<div class="item">
+  <div class="q">Ελέγχθηκαν περισσότερα / όλα τα εύκολα προσβάσιμα σημεία νερού για ροή και εμφανές πρόβλημα;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="s1" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="s1" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="s1" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="s1" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+<div class="item">
+  <div class="q">Ελέγχθηκε ορατά κάτω από νεροχύτη / νιπτήρα χωρίς αποσυναρμολόγηση;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="s2" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="s2" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="s2" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="s2" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+<div class="item">
+  <div class="q">Ελέγχθηκαν ορατές συνδέσεις λεκάνης / καζανακίου για στάξιμο ή υγρασία;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="s3" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="s3" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="s3" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="s3" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+<div class="item">
+  <div class="q">Επιλεγμένες πόρτες / παράθυρα λειτουργήθηκαν για δυσκολία ή πρόβλημα κλεισίματος;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="s4" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="s4" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="s4" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="s4" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+<div class="item">
+  <div class="q">Μπαλκόνι / βεράντα ελέγχθηκε για νερά, εμφανή φραγή απορροής ή ζημιά;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="s5" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="s5" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="s5" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="s5" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+<div class="item">
+  <div class="q">Όταν είναι προγραμματισμένο: A/C ενεργοποιήθηκε και παράγει αναμενόμενα κρύο/ζεστό αέρα;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="s6" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="s6" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="s6" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="s6" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div></section>
+<section class="card premiumSec"><h2>3C. PREMIUM — Πρόσθετοι Έλεγχοι</h2>
+<div class="item">
+  <div class="q">Επανελέγχθηκαν όλα τα ανοιχτά 🟡 ευρήματα και συγκρίθηκαν με προηγούμενη επίσκεψη;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="p1" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="p1" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="p1" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="p1" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+<div class="item">
+  <div class="q">Προηγούμενο σημάδι υγρασίας / λεκές / μικρή διαρροή συγκρίθηκε με προηγούμενη φωτογραφία ή σημείωση;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="p2" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="p2" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="p2" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="p2" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+<div class="item">
+  <div class="q">Συμφωνημένες συσκευές που είναι due ενεργοποιήθηκαν σύντομα για βασική λειτουργική επιβεβαίωση;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="p3" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="p3" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="p3" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="p3" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+<div class="item">
+  <div class="q">Ορατός security εξοπλισμός / κάμερες / καλωδιώσεις ελέγχθηκε για εμφανή μετατόπιση ή ζημιά;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="p4" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="p4" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="p4" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="p4" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+<div class="item">
+  <div class="q">Η απόδοση A/C συγκρίθηκε με αναμενόμενη λειτουργία: airflow, ψύξη/θέρμανση, θόρυβος, οσμή;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="p5" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="p5" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="p5" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="p5" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div></section>
+<section class="card luxurySec"><h2>3D. LUXURY — Property-Specific</h2>
+<div class="item">
+  <div class="q">Ελέγχθηκαν όλα τα property-specific σημεία του συμφωνημένου Property Care Plan;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="l1" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="l1" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="l1" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="l1" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+<div class="item">
+  <div class="q">Pool / garden / irrigation / garage / gates / pumps ελέγχθηκαν όπου εφαρμόζεται;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="l2" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="l2" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="l2" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="l2" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+<div class="item">
+  <div class="q">Όλα τα ανοιχτά Luxury maintenance items επανελέγχθηκαν και ενημερώθηκαν;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="l3" value="OK"><span class="choice">OK</span></label>
+    <label><input class="status y" type="radio" name="l3" value="🟡"><span class="choice">🟡</span></label>
+    <label><input class="status r" type="radio" name="l3" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status na" type="radio" name="l3" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="card">
+<h2>4. Τελική Αναφορά</h2>
+<div class="grid">
+<div><label>Γενική κατάσταση</label><select id="overall"><option>OK</option><option>🟡 Κίτρινο</option><option>🔴 Κόκκινο</option></select></div>
+<div><label>Ιδιοκτήτης ενημερώθηκε;</label><select id="owner"><option>Δεν απαιτήθηκε</option><option>Ναι</option><option>Όχι</option></select></div>
+</div>
+<label style="margin-top:10px">Συνολική παρατήρηση / επόμενο βήμα</label>
+<textarea id="summary"></textarea>
+</section>
+
+<section class="card noPrint">
+<h2>5. Αποθήκευση Report</h2>
+<p class="note"><b>Δεν κρατά ιστορικό.</b> Οι φωτογραφίες της επίσκεψης εμφανίζονται μέσα στο PDF. Πατήστε το κουμπί και στο iPad χρησιμοποιήστε το Print/Share για να αποθηκεύσετε το report ως PDF με το όνομα που θέλετε.</p>
+<button class="primary" type="button" onclick="makePDF()">ΔΗΜΙΟΥΡΓΙΑ / ΑΠΟΘΗΚΕΥΣΗ PDF</button>
+<button class="secondary" type="button" onclick="location.reload()">ΝΕΑ ΚΑΘΑΡΗ ΕΠΙΣΚΕΨΗ</button>
+</section>
+</main></div>
+
+<script>
+document.querySelectorAll('.photoInput').forEach(function(inp){
+ inp.addEventListener('change',function(){
+   var file=this.files&&this.files[0], prev=this.parentElement.querySelector('.preview');
+   prev.innerHTML='';
+   if(!file){prev.style.display='none';return}
+   var reader=new FileReader();
+   reader.onload=function(e){var img=document.createElement('img');img.src=e.target.result;prev.appendChild(img);prev.style.display='block'}
+   reader.readAsDataURL(file);
+ });
+});
+document.querySelectorAll('.status').forEach(function(r){
+ r.addEventListener('change',function(){
+   var item=this.closest('.item');
+   item.querySelector('.printResult span').textContent=this.value;
+ });
+});
+try{document.getElementById('date').valueAsDate=new Date()}catch(e){}
+
+async function makePDF(){
+  const btn = document.querySelector('button.primary');
+  const original = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'ΔΗΜΙΟΥΡΓΙΑ PDF...';
+
+  try{
+    const plan = document.querySelector('input[name="plan"]:checked')?.id?.replace('plan','') || 'Basic';
+    const property = document.getElementById('property').value || 'Home_Watch';
+    const employee = document.getElementById('employee').value || '';
+    const date = document.getElementById('date').value || '';
+    const arrival = document.getElementById('arrival').value || '';
+    const departure = document.getElementById('departure').value || '';
+    const overall = document.getElementById('overall').value || '';
+    const owner = document.getElementById('owner').value || '';
+    const summary = document.getElementById('summary').value || '';
+
+    const activeSections = [document.querySelector('.basicSec')];
+    if(['Standard','Premium','Luxury'].includes(plan)) activeSections.push(document.querySelector('.standardSec'));
+    if(['Premium','Luxury'].includes(plan)) activeSections.push(document.querySelector('.premiumSec'));
+    if(plan==='Luxury') activeSections.push(document.querySelector('.luxurySec'));
+
+    const items = [];
+    for(const sec of activeSections){
+      const sectionTitle = sec.querySelector('h2')?.textContent || '';
+      for(const item of sec.querySelectorAll('.item')){
+        const q = item.querySelector('.q')?.textContent || '';
+        const checked = item.querySelector('.status:checked');
+        const result = checked ? checked.value : '—';
+        const note = item.querySelector('.noteInput')?.value || '';
+        const files = [...item.querySelectorAll('.photoInput')].map(x=>x.files?.[0]).filter(Boolean);
+        items.push({sectionTitle,q,result,note,files});
+      }
+    }
+
+    // A4-ish canvas at 150 dpi. Each canvas becomes one PDF page image.
+    const PW=1240, PH=1754, M=70, CW=PW-2*M;
+    const pages=[];
+    let canvas,ctx,y,lastSection='';
+
+    function newPage(){
+      canvas=document.createElement('canvas'); canvas.width=PW; canvas.height=PH;
+      ctx=canvas.getContext('2d');
+      ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,PW,PH);
+      ctx.fillStyle='#9a762d'; ctx.fillRect(0,0,PW,86);
+      ctx.fillStyle='#ffffff'; ctx.font='bold 34px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+      ctx.fillText('HOME WATCH — VISIT REPORT',M,55);
+      y=125; lastSection='';
+      pages.push(canvas);
+    }
+    function wrap(str,maxWidth,font){
+      ctx.font=font;
+      const words=String(str||'').split(/\s+/); const lines=[]; let line='';
+      for(const w of words){
+        const test=line ? line+' '+w : w;
+        if(ctx.measureText(test).width<=maxWidth) line=test;
+        else { if(line) lines.push(line); line=w; }
+      }
+      if(line) lines.push(line);
+      return lines;
+    }
+    function ensure(h){
+      if(y+h>PH-M){ newPage(); }
+    }
+    function drawLines(str,x,width,font,color='#222',lh=30){
+      const lines=wrap(str,width,font);
+      ensure(lines.length*lh+8);
+      ctx.font=font; ctx.fillStyle=color;
+      for(const line of lines){ ctx.fillText(line,x,y); y+=lh; }
+      return lines.length;
+    }
+    async function fileToImage(file){
+      return new Promise((resolve,reject)=>{
+        const r=new FileReader();
+        r.onload=e=>{
+          const im=new Image();
+          im.onload=()=>resolve(im); im.onerror=reject; im.src=e.target.result;
+        };
+        r.onerror=reject; r.readAsDataURL(file);
+      });
+    }
+    function drawImageFit(img){
+      const maxW=CW, maxH=430;
+      let w=img.naturalWidth||img.width, h=img.naturalHeight||img.height;
+      const sc=Math.min(maxW/w,maxH/h,1);
+      w*=sc; h*=sc;
+      ensure(h+24);
+      ctx.drawImage(img,M,y,w,h);
+      y+=h+20;
+    }
+
+    newPage();
+    ctx.fillStyle='#222';
+    ctx.font='bold 26px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+    ctx.fillText(`${property} — ${plan}`,M,y); y+=42;
+    drawLines(`Υπάλληλος: ${employee}   |   Ημερομηνία: ${date}   |   Άφιξη: ${arrival}   |   Αναχώρηση: ${departure}`,M,CW,'22px -apple-system,BlinkMacSystemFont,Arial,sans-serif','#444',29);
+    y+=12;
+    ctx.strokeStyle='#d8d1c3'; ctx.beginPath(); ctx.moveTo(M,y); ctx.lineTo(PW-M,y); ctx.stroke(); y+=28;
+
+    for(const it of items){
+      if(it.sectionTitle!==lastSection){
+        ensure(62);
+        ctx.fillStyle='#9a762d'; ctx.font='bold 25px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+        ctx.fillText(it.sectionTitle,M,y); y+=40;
+        lastSection=it.sectionTitle;
+      }
+      ensure(120);
+      drawLines(it.q,M,CW,'bold 22px -apple-system,BlinkMacSystemFont,Arial,sans-serif','#222',29);
+      ctx.font='bold 21px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+      ctx.fillStyle=it.result==='🔴'?'#a32929':it.result==='🟡'?'#8a6d00':'#333';
+      ctx.fillText(`Αποτέλεσμα: ${it.result}`,M,y); y+=31;
+      if(it.note){
+        drawLines(`Παρατήρηση: ${it.note}`,M,CW,'20px -apple-system,BlinkMacSystemFont,Arial,sans-serif','#444',27);
+      }
+      for(const f of it.files){
+        try{ const im=await fileToImage(f); drawImageFit(im); }catch(e){}
+      }
+      y+=14;
+      ctx.strokeStyle='#e2ddd3'; ctx.beginPath(); ctx.moveTo(M,y); ctx.lineTo(PW-M,y); ctx.stroke(); y+=25;
+    }
+
+    ensure(210);
+    ctx.fillStyle='#9a762d'; ctx.font='bold 25px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+    ctx.fillText('ΤΕΛΙΚΗ ΑΝΑΦΟΡΑ',M,y); y+=40;
+    drawLines(`Γενική κατάσταση: ${overall}`,M,CW,'bold 22px -apple-system,BlinkMacSystemFont,Arial,sans-serif','#222',29);
+    drawLines(`Ιδιοκτήτης ενημερώθηκε: ${owner}`,M,CW,'22px -apple-system,BlinkMacSystemFont,Arial,sans-serif','#333',29);
+    if(summary) drawLines(`Παρατήρηση / επόμενο βήμα: ${summary}`,M,CW,'22px -apple-system,BlinkMacSystemFont,Arial,sans-serif','#333',29);
+
+    // Encode pages as JPEGs and assemble a real PDF.
+    const jpegs=[];
+    for(const pg of pages){
+      const data=pg.toDataURL('image/jpeg',0.84).split(',')[1];
+      const bin=atob(data); const arr=new Uint8Array(bin.length);
+      for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
+      jpegs.push(arr);
+    }
+
+    function bytes(s){ return new TextEncoder().encode(s); }
+    const objects=[null]; // 1-based
+    const pageIds=[], imageIds=[], contentIds=[];
+    const pagesId=2, catalogId=1;
+
+    // Reserve IDs
+    let next=3;
+    for(let i=0;i<jpegs.length;i++){
+      pageIds.push(next++); imageIds.push(next++); contentIds.push(next++);
+    }
+    objects[catalogId]=bytes(`<< /Type /Catalog /Pages ${pagesId} 0 R >>`);
+    objects[pagesId]=bytes(`<< /Type /Pages /Count ${jpegs.length} /Kids [${pageIds.map(id=>id+' 0 R').join(' ')}] >>`);
+
+    for(let i=0;i<jpegs.length;i++){
+      const pageId=pageIds[i], imageId=imageIds[i], contentId=contentIds[i];
+      const img=jpegs[i];
+      const imgHead=bytes(`<< /Type /XObject /Subtype /Image /Width ${PW} /Height ${PH} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${img.length} >>\nstream\n`);
+      const imgTail=bytes(`\nendstream`);
+      const imgObj=new Uint8Array(imgHead.length+img.length+imgTail.length);
+      imgObj.set(imgHead,0); imgObj.set(img,imgHead.length); imgObj.set(imgTail,imgHead.length+img.length);
+      objects[imageId]=imgObj;
+
+      const stream=`q\n595 0 0 842 0 0 cm\n/Im${i+1} Do\nQ`;
+      const sb=bytes(stream);
+      const ch=bytes(`<< /Length ${sb.length} >>\nstream\n`);
+      const ct=bytes(`\nendstream`);
+      const co=new Uint8Array(ch.length+sb.length+ct.length); co.set(ch); co.set(sb,ch.length); co.set(ct,ch.length+sb.length);
+      objects[contentId]=co;
+      objects[pageId]=bytes(`<< /Type /Page /Parent ${pagesId} 0 R /MediaBox [0 0 595 842] /Resources << /XObject << /Im${i+1} ${imageId} 0 R >> >> /Contents ${contentId} 0 R >>`);
+    }
+
+    const parts=[bytes('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n')];
+    const offsets=[0]; let total=parts[0].length;
+    for(let id=1;id<objects.length;id++){
+      offsets[id]=total;
+      const head=bytes(`${id} 0 obj\n`), tail=bytes(`\nendobj\n`);
+      parts.push(head,objects[id],tail);
+      total+=head.length+objects[id].length+tail.length;
+    }
+    const xrefOffset=total;
+    let xref=`xref\n0 ${objects.length}\n0000000000 65535 f \n`;
+    for(let id=1;id<objects.length;id++) xref+=String(offsets[id]).padStart(10,'0')+' 00000 n \n';
+    xref+=`trailer\n<< /Size ${objects.length} /Root ${catalogId} 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`;
+    parts.push(bytes(xref));
+
+    const blob=new Blob(parts,{type:'application/pdf'});
+    const clean=(property+'_'+plan+'_'+date+'_Home_Watch_Report').replace(/[^\w\-]+/g,'_');
+    const file=new File([blob],clean+'.pdf',{type:'application/pdf'});
+
+    if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+      await navigator.share({files:[file],title:'Home Watch Report'});
+    }else{
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url; a.download=file.name;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),5000);
+    }
+  }catch(err){
+    alert('Δεν ήταν δυνατή η δημιουργία PDF σε αυτή τη συσκευή: '+err.message);
+  }finally{
+    btn.disabled=false;
+    btn.textContent=original;
+  }
+}
+</script>
+</body></html>
