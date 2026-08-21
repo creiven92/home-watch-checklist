@@ -5,45 +5,46 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Home Watch Checklist → PDF</title>
 <style>
-:root{--gold:#9a762d;--ink:#222;--bg:#f4f3ef;--line:#ddd8cc;--green:#dff2e6;--yellow:#fff3bf;--red:#f8d7da}
+:root{--teal:#003f42;--teal2:#0a5658;--gold:#b28a43;--cream:#f3efe4;--ink:#213132;--bg:#f3efe4;--line:#cbd1c8;--green:#dff2e6;--yellow:#fff3bf;--red:#f8d7da}
 *{box-sizing:border-box}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink)}
-header{background:var(--gold);color:white;padding:16px 18px;position:sticky;top:0;z-index:10}
-header h1{font-size:21px;margin:0 0 3px} header p{font-size:12px;margin:0}
+header{background:var(--teal);color:white;padding:14px 18px 13px;position:sticky;top:0;z-index:10;border-bottom:2px solid var(--gold);box-shadow:0 2px 10px rgba(0,0,0,.12)}
+header h1{font-size:21px;margin:6px 0 3px} header p{font-size:12px;margin:0;color:#d9e4e2}
 main{max-width:1000px;margin:auto;padding:12px}
 .card{background:white;border:1px solid var(--line);border-radius:14px;padding:15px;margin:12px 0}
-h2{font-size:18px;color:#75591e;margin:0 0 10px}
+h2{font-size:18px;color:var(--teal);margin:0 0 10px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 label{font-size:13px;font-weight:700;display:block;margin:0 0 5px}
 input,textarea,select{width:100%;font-size:16px;padding:10px;border:1px solid #cbc4b6;border-radius:9px;background:white}
 textarea{min-height:80px}
 .planRadio{display:none}
-.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.tabs label{padding:12px 5px;border:2px solid #d6cfbf;border-radius:10px;text-align:center;background:#faf9f6;margin:0}
-#planBasic:checked~.app .tabBasic,#planStandard:checked~.app .tabStandard,#planPremium:checked~.app .tabPremium,#planLuxury:checked~.app .tabLuxury{background:var(--gold);color:white;border-color:var(--gold)}
-.standardSec,.premiumSec,.luxurySec{display:none}
-#planStandard:checked~.app .standardSec,#planPremium:checked~.app .standardSec,#planLuxury:checked~.app .standardSec{display:block}
-#planPremium:checked~.app .premiumSec,#planLuxury:checked~.app .premiumSec{display:block}
-#planLuxury:checked~.app .luxurySec{display:block}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tabs label{padding:12px 5px;border:2px solid #d6cfbf;border-radius:10px;text-align:center;background:#faf9f6;margin:0;color:var(--teal)}
+#planBasic:checked~.app .tabBasic,#planStandard:checked~.app .tabStandard,#planPremium:checked~.app .tabPremium{background:var(--teal);color:white;border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.standardSec,.premiumSec{display:none}
+#planStandard:checked~.app .standardSec,#planPremium:checked~.app .standardSec{display:block}
+#planPremium:checked~.app .premiumSec{display:block}
 .planText span{display:none}
-#planBasic:checked~.app .ptBasic,#planStandard:checked~.app .ptStandard,#planPremium:checked~.app .ptPremium,#planLuxury:checked~.app .ptLuxury{display:inline}
+#planBasic:checked~.app .ptBasic,#planStandard:checked~.app .ptStandard,#planPremium:checked~.app .ptPremium{display:inline}
 .item{padding:13px 0;border-top:1px solid #ece7dc;break-inside:avoid}.item:first-child{border-top:0}
 .q{font-weight:700;font-size:15px;line-height:1.35;margin-bottom:9px}
 .opts{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:9px}
 .opts label{border:1px solid #cec6b8;border-radius:9px;padding:10px 4px;text-align:center;background:#fafafa;margin:0}
 .opts input{display:none}.choice{display:block;border-radius:7px;padding:4px}
-.ok:checked+.choice{background:var(--green)}.y:checked+.choice{background:var(--yellow)}.r:checked+.choice{background:var(--red)}.na:checked+.choice{background:#eee}
+.ok:checked+.choice{background:var(--green)}.y:checked+.choice{background:var(--yellow)}.r:checked+.choice{background:var(--red);color:#a32929;font-weight:800}.na:checked+.choice{background:#eee}
 .photos{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
 .photoBox{padding:9px;border:1px solid #e1dbcf;border-radius:9px;background:#faf9f6}
 .preview{display:none;margin-top:8px}.preview img{max-width:100%;max-height:260px;border-radius:8px;border:1px solid #ddd}
 .printResult{display:none}
 button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-weight:800;margin:8px 0}
-.primary{background:var(--gold);color:white}.secondary{background:#d9d3c6;color:#222}
+.primary{background:var(--teal);color:white;border:1px solid var(--gold)}.secondary{background:#e3ddd0;color:var(--ink)}
 .note{font-size:12px;color:#666;line-height:1.45}
-@media(max-width:700px){.grid,.photos{grid-template-columns:1fr}.tabs{grid-template-columns:1fr 1fr}.opts{grid-template-columns:repeat(4,1fr)}main{padding:9px}}
+.summaryBox{display:none;margin-top:10px}.summaryBox.show{display:block}
+.overallStatus.statusOK{color:#237a3b;font-weight:800;background:var(--green)}.overallStatus.statusWarn{color:#8a6d00;font-weight:800;background:var(--yellow)}.overallStatus.statusUrgent{color:#8b1e1e;font-weight:800;background:var(--red)}
+@media(max-width:700px){.grid,.photos{grid-template-columns:1fr}.tabs{grid-template-columns:repeat(3,1fr)}.opts{grid-template-columns:repeat(4,1fr)}main{padding:9px}}
 @media print{
  body{background:white}
- header{position:static;background:white;color:#111;border-bottom:2px solid #9a762d}
+ header{position:static;background:white;color:#003f42;border-bottom:2px solid #b28a43;box-shadow:none}
  .noPrint,.tabs,.opts,.photoBox>label,.photoInput{display:none!important}
  main{max-width:none;padding:0}
  .card{border:0;border-radius:0;padding:7px 0;margin:0}
@@ -57,18 +58,26 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
  h2{font-size:15px}
  @page{size:A4;margin:11mm}
 }
+
+.brandLogo{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.brandName{font-family:Georgia,"Times New Roman",serif;font-size:29px;letter-spacing:9px;line-height:1;color:#fff}
+.brandLine{font-size:9px;letter-spacing:.5px;color:#d6b36b;text-transform:uppercase;margin-bottom:3px}
+
 </style>
 </head>
 <body>
 <header>
+<div class="brandLogo">
+  <div class="brandName">KEDRON</div>
+  <div class="brandLine">Real Estate · Construction · Property Management</div>
+</div>
 <h1>HOME WATCH — CHECKLIST / REPORT</h1>
-<p>Καθαρή νέα φόρμα σε κάθε άνοιγμα • χωρίς μνήμη προηγούμενων επισκέψεων</p>
+
 </header>
 
 <input class="planRadio" type="radio" id="planBasic" name="plan" checked>
 <input class="planRadio" type="radio" id="planStandard" name="plan">
 <input class="planRadio" type="radio" id="planPremium" name="plan">
-<input class="planRadio" type="radio" id="planLuxury" name="plan">
 
 <div class="app"><main>
 <section class="card noPrint">
@@ -77,7 +86,6 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
 <label class="tabBasic" for="planBasic">BASIC<br><small>~20'</small></label>
 <label class="tabStandard" for="planStandard">STANDARD<br><small>~30'</small></label>
 <label class="tabPremium" for="planPremium">PREMIUM<br><small>~40'</small></label>
-<label class="tabLuxury" for="planLuxury">LUXURY<br><small>Tailored</small></label>
 </div>
 </section>
 
@@ -85,7 +93,7 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
 <h2>2. Στοιχεία Επίσκεψης</h2>
 <div class="grid">
 <div><label>Property ID / Όνομα</label><input id="property"></div>
-<div><label>Πακέτο</label><div class="planText"><span class="ptBasic">Basic</span><span class="ptStandard">Standard</span><span class="ptPremium">Premium</span><span class="ptLuxury">Luxury</span></div></div>
+<div><label>Πακέτο</label><div class="planText"><span class="ptBasic">Basic</span><span class="ptStandard">Standard</span><span class="ptPremium">Premium</span></div></div>
 <div><label>Υπάλληλος</label><input id="employee"></div>
 <div><label>Ημερομηνία</label><input id="date" type="date"></div>
 <div><label>Ώρα άφιξης</label><input id="arrival" type="time"></div>
@@ -97,9 +105,9 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
 <div class="item">
   <div class="q">Εμφανή σημάδια παραβίασης, προσπάθειας εισόδου ή βανδαλισμού;</div>
   <div class="opts">
-    <label><input class="status ok" type="radio" name="b1" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="b1" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="b1" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status ok" type="radio" name="b1" value="OK ✓"><span class="choice">OK ✓</span></label>
+    <label><input class="status y" type="radio" name="b1" value="Προσοχή ⚠️"><span class="choice">Προσοχή ⚠️</span></label>
+    <label><input class="status r" type="radio" name="b1" value="Επείγον ⚠"><span class="choice">Επείγον <span style="color:#c62828">⚠</span></span></label>
     <label><input class="status na" type="radio" name="b1" value="N/A"><span class="choice">N/A</span></label>
   </div>
   <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
@@ -121,9 +129,9 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
 <div class="item">
   <div class="q">Κεντρική πόρτα / κλειδαριά / είσοδος χωρίς εμφανή ζημιά;</div>
   <div class="opts">
-    <label><input class="status ok" type="radio" name="b2" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="b2" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="b2" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status ok" type="radio" name="b2" value="OK ✓"><span class="choice">OK ✓</span></label>
+    <label><input class="status y" type="radio" name="b2" value="Προσοχή ⚠️"><span class="choice">Προσοχή ⚠️</span></label>
+    <label><input class="status r" type="radio" name="b2" value="Επείγον ⚠"><span class="choice">Επείγον <span style="color:#c62828">⚠</span></span></label>
     <label><input class="status na" type="radio" name="b2" value="N/A"><span class="choice">N/A</span></label>
   </div>
   <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
@@ -145,9 +153,9 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
 <div class="item">
   <div class="q">Ορατά παράθυρα / ρολά / παντζούρια κλειστά και χωρίς εμφανή θραύση;</div>
   <div class="opts">
-    <label><input class="status ok" type="radio" name="b3" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="b3" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="b3" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status ok" type="radio" name="b3" value="OK ✓"><span class="choice">OK ✓</span></label>
+    <label><input class="status y" type="radio" name="b3" value="Προσοχή ⚠️"><span class="choice">Προσοχή ⚠️</span></label>
+    <label><input class="status r" type="radio" name="b3" value="Επείγον ⚠"><span class="choice">Επείγον <span style="color:#c62828">⚠</span></span></label>
     <label><input class="status na" type="radio" name="b3" value="N/A"><span class="choice">N/A</span></label>
   </div>
   <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
@@ -169,9 +177,9 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
 <div class="item">
   <div class="q">Κατά την είσοδο υπάρχει ασυνήθιστη οσμή, εμφανές νερό ή ένδειξη μη εξουσιοδοτημένης εισόδου;</div>
   <div class="opts">
-    <label><input class="status ok" type="radio" name="b4" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="b4" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="b4" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status ok" type="radio" name="b4" value="OK ✓"><span class="choice">OK ✓</span></label>
+    <label><input class="status y" type="radio" name="b4" value="Προσοχή ⚠️"><span class="choice">Προσοχή ⚠️</span></label>
+    <label><input class="status r" type="radio" name="b4" value="Επείγον ⚠"><span class="choice">Επείγον <span style="color:#c62828">⚠</span></span></label>
     <label><input class="status na" type="radio" name="b4" value="N/A"><span class="choice">N/A</span></label>
   </div>
   <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
@@ -193,9 +201,9 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
 <div class="item">
   <div class="q">Alarm / security system σε σωστή εμφανή κατάσταση;</div>
   <div class="opts">
-    <label><input class="status ok" type="radio" name="b5" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="b5" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="b5" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status ok" type="radio" name="b5" value="OK ✓"><span class="choice">OK ✓</span></label>
+    <label><input class="status y" type="radio" name="b5" value="Προσοχή ⚠️"><span class="choice">Προσοχή ⚠️</span></label>
+    <label><input class="status r" type="radio" name="b5" value="Επείγον ⚠"><span class="choice">Επείγον <span style="color:#c62828">⚠</span></span></label>
     <label><input class="status na" type="radio" name="b5" value="N/A"><span class="choice">N/A</span></label>
   </div>
   <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
@@ -217,9 +225,9 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
 <div class="item">
   <div class="q">Εμφανή σημάδια υγρασίας, μούχλας ή νερού;</div>
   <div class="opts">
-    <label><input class="status ok" type="radio" name="b6" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="b6" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="b6" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status ok" type="radio" name="b6" value="OK ✓"><span class="choice">OK ✓</span></label>
+    <label><input class="status y" type="radio" name="b6" value="Προσοχή ⚠️"><span class="choice">Προσοχή ⚠️</span></label>
+    <label><input class="status r" type="radio" name="b6" value="Επείγον ⚠"><span class="choice">Επείγον <span style="color:#c62828">⚠</span></span></label>
     <label><input class="status na" type="radio" name="b6" value="N/A"><span class="choice">N/A</span></label>
   </div>
   <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
@@ -241,9 +249,9 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
 <div class="item">
   <div class="q">Άνοιξε επιλεγμένη βρύση και έγιναν flush οι τουαλέτες όπου προβλέπεται;</div>
   <div class="opts">
-    <label><input class="status ok" type="radio" name="b7" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="b7" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="b7" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status ok" type="radio" name="b7" value="OK ✓"><span class="choice">OK ✓</span></label>
+    <label><input class="status y" type="radio" name="b7" value="Προσοχή ⚠️"><span class="choice">Προσοχή ⚠️</span></label>
+    <label><input class="status r" type="radio" name="b7" value="Επείγον ⚠"><span class="choice">Επείγον <span style="color:#c62828">⚠</span></span></label>
     <label><input class="status na" type="radio" name="b7" value="N/A"><span class="choice">N/A</span></label>
   </div>
   <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
@@ -265,9 +273,9 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
 <div class="item">
   <div class="q">Εμφανές ηλεκτρικό πρόβλημα: μυρωδιά καμένου, ασυνήθιστος ήχος ή ζημιά;</div>
   <div class="opts">
-    <label><input class="status ok" type="radio" name="b8" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="b8" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="b8" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status ok" type="radio" name="b8" value="OK ✓"><span class="choice">OK ✓</span></label>
+    <label><input class="status y" type="radio" name="b8" value="Προσοχή ⚠️"><span class="choice">Προσοχή ⚠️</span></label>
+    <label><input class="status r" type="radio" name="b8" value="Επείγον ⚠"><span class="choice">Επείγον <span style="color:#c62828">⚠</span></span></label>
     <label><input class="status na" type="radio" name="b8" value="N/A"><span class="choice">N/A</span></label>
   </div>
   <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
@@ -286,13 +294,13 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
     </div>
   </div>
 </div></section>
-<section class="card standardSec"><h2>3B. STANDARD — Πρόσθετοι Έλεγχοι</h2>
+<section class="card standardSec"><h2>3B. STANDARD — Αναλυτικοί Έλεγχοι</h2>
 <div class="item">
-  <div class="q">Ελέγχθηκαν περισσότερα / όλα τα εύκολα προσβάσιμα σημεία νερού για ροή και εμφανές πρόβλημα;</div>
+  <div class="q">Ελέγχθηκαν οι εμφανείς υδραυλικές συνδέσεις, βαλβίδες και σιφώνια για διαρροή, υγρασία, οσμή ή άλλο εμφανές πρόβλημα;</div>
   <div class="opts">
-    <label><input class="status ok" type="radio" name="s1" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="s1" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="s1" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status ok" type="radio" name="s1" value="OK ✓"><span class="choice">OK ✓</span></label>
+    <label><input class="status y" type="radio" name="s1" value="Προσοχή ⚠️"><span class="choice">Προσοχή ⚠️</span></label>
+    <label><input class="status r" type="radio" name="s1" value="Επείγον ⚠"><span class="choice">Επείγον <span style="color:#c62828">⚠</span></span></label>
     <label><input class="status na" type="radio" name="s1" value="N/A"><span class="choice">N/A</span></label>
   </div>
   <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
@@ -314,9 +322,9 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
 <div class="item">
   <div class="q">Ελέγχθηκε ορατά κάτω από νεροχύτη / νιπτήρα χωρίς αποσυναρμολόγηση;</div>
   <div class="opts">
-    <label><input class="status ok" type="radio" name="s2" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="s2" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="s2" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status ok" type="radio" name="s2" value="OK ✓"><span class="choice">OK ✓</span></label>
+    <label><input class="status y" type="radio" name="s2" value="Προσοχή ⚠️"><span class="choice">Προσοχή ⚠️</span></label>
+    <label><input class="status r" type="radio" name="s2" value="Επείγον ⚠"><span class="choice">Επείγον <span style="color:#c62828">⚠</span></span></label>
     <label><input class="status na" type="radio" name="s2" value="N/A"><span class="choice">N/A</span></label>
   </div>
   <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
@@ -338,9 +346,9 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
 <div class="item">
   <div class="q">Ελέγχθηκαν ορατές συνδέσεις λεκάνης / καζανακίου για στάξιμο ή υγρασία;</div>
   <div class="opts">
-    <label><input class="status ok" type="radio" name="s3" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="s3" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="s3" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status ok" type="radio" name="s3" value="OK ✓"><span class="choice">OK ✓</span></label>
+    <label><input class="status y" type="radio" name="s3" value="Προσοχή ⚠️"><span class="choice">Προσοχή ⚠️</span></label>
+    <label><input class="status r" type="radio" name="s3" value="Επείγον ⚠"><span class="choice">Επείγον <span style="color:#c62828">⚠</span></span></label>
     <label><input class="status na" type="radio" name="s3" value="N/A"><span class="choice">N/A</span></label>
   </div>
   <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
@@ -362,9 +370,9 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
 <div class="item">
   <div class="q">Επιλεγμένες πόρτες / παράθυρα λειτουργήθηκαν για δυσκολία ή πρόβλημα κλεισίματος;</div>
   <div class="opts">
-    <label><input class="status ok" type="radio" name="s4" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="s4" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="s4" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status ok" type="radio" name="s4" value="OK ✓"><span class="choice">OK ✓</span></label>
+    <label><input class="status y" type="radio" name="s4" value="Προσοχή ⚠️"><span class="choice">Προσοχή ⚠️</span></label>
+    <label><input class="status r" type="radio" name="s4" value="Επείγον ⚠"><span class="choice">Επείγον <span style="color:#c62828">⚠</span></span></label>
     <label><input class="status na" type="radio" name="s4" value="N/A"><span class="choice">N/A</span></label>
   </div>
   <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
@@ -386,9 +394,9 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
 <div class="item">
   <div class="q">Μπαλκόνι / βεράντα ελέγχθηκε για νερά, εμφανή φραγή απορροής ή ζημιά;</div>
   <div class="opts">
-    <label><input class="status ok" type="radio" name="s5" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="s5" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="s5" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status ok" type="radio" name="s5" value="OK ✓"><span class="choice">OK ✓</span></label>
+    <label><input class="status y" type="radio" name="s5" value="Προσοχή ⚠️"><span class="choice">Προσοχή ⚠️</span></label>
+    <label><input class="status r" type="radio" name="s5" value="Επείγον ⚠"><span class="choice">Επείγον <span style="color:#c62828">⚠</span></span></label>
     <label><input class="status na" type="radio" name="s5" value="N/A"><span class="choice">N/A</span></label>
   </div>
   <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
@@ -410,9 +418,9 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
 <div class="item">
   <div class="q">Όταν είναι προγραμματισμένο: A/C ενεργοποιήθηκε και παράγει αναμενόμενα κρύο/ζεστό αέρα;</div>
   <div class="opts">
-    <label><input class="status ok" type="radio" name="s6" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="s6" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="s6" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status ok" type="radio" name="s6" value="OK ✓"><span class="choice">OK ✓</span></label>
+    <label><input class="status y" type="radio" name="s6" value="Προσοχή ⚠️"><span class="choice">Προσοχή ⚠️</span></label>
+    <label><input class="status r" type="radio" name="s6" value="Επείγον ⚠"><span class="choice">Επείγον <span style="color:#c62828">⚠</span></span></label>
     <label><input class="status na" type="radio" name="s6" value="N/A"><span class="choice">N/A</span></label>
   </div>
   <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
@@ -431,13 +439,13 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
     </div>
   </div>
 </div></section>
-<section class="card premiumSec"><h2>3C. PREMIUM — Πρόσθετοι Έλεγχοι</h2>
+<section class="card premiumSec"><h2>3C. PREMIUM — Προληπτικός Έλεγχος & Παρακολούθηση</h2>
 <div class="item">
   <div class="q">Επανελέγχθηκαν όλα τα ανοιχτά 🟡 ευρήματα και συγκρίθηκαν με προηγούμενη επίσκεψη;</div>
   <div class="opts">
-    <label><input class="status ok" type="radio" name="p1" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="p1" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="p1" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status ok" type="radio" name="p1" value="OK ✓"><span class="choice">OK ✓</span></label>
+    <label><input class="status y" type="radio" name="p1" value="Προσοχή ⚠️"><span class="choice">Προσοχή ⚠️</span></label>
+    <label><input class="status r" type="radio" name="p1" value="Επείγον ⚠"><span class="choice">Επείγον <span style="color:#c62828">⚠</span></span></label>
     <label><input class="status na" type="radio" name="p1" value="N/A"><span class="choice">N/A</span></label>
   </div>
   <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
@@ -459,9 +467,9 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
 <div class="item">
   <div class="q">Προηγούμενο σημάδι υγρασίας / λεκές / μικρή διαρροή συγκρίθηκε με προηγούμενη φωτογραφία ή σημείωση;</div>
   <div class="opts">
-    <label><input class="status ok" type="radio" name="p2" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="p2" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="p2" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status ok" type="radio" name="p2" value="OK ✓"><span class="choice">OK ✓</span></label>
+    <label><input class="status y" type="radio" name="p2" value="Προσοχή ⚠️"><span class="choice">Προσοχή ⚠️</span></label>
+    <label><input class="status r" type="radio" name="p2" value="Επείγον ⚠"><span class="choice">Επείγον <span style="color:#c62828">⚠</span></span></label>
     <label><input class="status na" type="radio" name="p2" value="N/A"><span class="choice">N/A</span></label>
   </div>
   <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
@@ -483,9 +491,9 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
 <div class="item">
   <div class="q">Συμφωνημένες συσκευές που είναι due ενεργοποιήθηκαν σύντομα για βασική λειτουργική επιβεβαίωση;</div>
   <div class="opts">
-    <label><input class="status ok" type="radio" name="p3" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="p3" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="p3" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status ok" type="radio" name="p3" value="OK ✓"><span class="choice">OK ✓</span></label>
+    <label><input class="status y" type="radio" name="p3" value="Προσοχή ⚠️"><span class="choice">Προσοχή ⚠️</span></label>
+    <label><input class="status r" type="radio" name="p3" value="Επείγον ⚠"><span class="choice">Επείγον <span style="color:#c62828">⚠</span></span></label>
     <label><input class="status na" type="radio" name="p3" value="N/A"><span class="choice">N/A</span></label>
   </div>
   <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
@@ -507,9 +515,9 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
 <div class="item">
   <div class="q">Ορατός security εξοπλισμός / κάμερες / καλωδιώσεις ελέγχθηκε για εμφανή μετατόπιση ή ζημιά;</div>
   <div class="opts">
-    <label><input class="status ok" type="radio" name="p4" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="p4" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="p4" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status ok" type="radio" name="p4" value="OK ✓"><span class="choice">OK ✓</span></label>
+    <label><input class="status y" type="radio" name="p4" value="Προσοχή ⚠️"><span class="choice">Προσοχή ⚠️</span></label>
+    <label><input class="status r" type="radio" name="p4" value="Επείγον ⚠"><span class="choice">Επείγον <span style="color:#c62828">⚠</span></span></label>
     <label><input class="status na" type="radio" name="p4" value="N/A"><span class="choice">N/A</span></label>
   </div>
   <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
@@ -531,9 +539,9 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
 <div class="item">
   <div class="q">Η απόδοση A/C συγκρίθηκε με αναμενόμενη λειτουργία: airflow, ψύξη/θέρμανση, θόρυβος, οσμή;</div>
   <div class="opts">
-    <label><input class="status ok" type="radio" name="p5" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="p5" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="p5" value="🔴"><span class="choice">🔴</span></label>
+    <label><input class="status ok" type="radio" name="p5" value="OK ✓"><span class="choice">OK ✓</span></label>
+    <label><input class="status y" type="radio" name="p5" value="Προσοχή ⚠️"><span class="choice">Προσοχή ⚠️</span></label>
+    <label><input class="status r" type="radio" name="p5" value="Επείγον ⚠"><span class="choice">Επείγον <span style="color:#c62828">⚠</span></span></label>
     <label><input class="status na" type="radio" name="p5" value="N/A"><span class="choice">N/A</span></label>
   </div>
   <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
@@ -552,93 +560,21 @@ button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-w
     </div>
   </div>
 </div></section>
-<section class="card luxurySec"><h2>3D. LUXURY — Property-Specific</h2>
-<div class="item">
-  <div class="q">Ελέγχθηκαν όλα τα property-specific σημεία του συμφωνημένου Property Care Plan;</div>
-  <div class="opts">
-    <label><input class="status ok" type="radio" name="l1" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="l1" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="l1" value="🔴"><span class="choice">🔴</span></label>
-    <label><input class="status na" type="radio" name="l1" value="N/A"><span class="choice">N/A</span></label>
-  </div>
-  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
-  <label>Παρατήρηση</label>
-  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
-  <div class="photos">
-    <div class="photoBox">
-      <label>📷 Φωτογραφία</label>
-      <input class="photoInput" type="file" accept="image/*" capture="environment">
-      <div class="preview"></div>
-    </div>
-    <div class="photoBox">
-      <label>📷 Επιπλέον φωτογραφία</label>
-      <input class="photoInput" type="file" accept="image/*" capture="environment">
-      <div class="preview"></div>
-    </div>
-  </div>
-</div>
-<div class="item">
-  <div class="q">Pool / garden / irrigation / garage / gates / pumps ελέγχθηκαν όπου εφαρμόζεται;</div>
-  <div class="opts">
-    <label><input class="status ok" type="radio" name="l2" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="l2" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="l2" value="🔴"><span class="choice">🔴</span></label>
-    <label><input class="status na" type="radio" name="l2" value="N/A"><span class="choice">N/A</span></label>
-  </div>
-  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
-  <label>Παρατήρηση</label>
-  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
-  <div class="photos">
-    <div class="photoBox">
-      <label>📷 Φωτογραφία</label>
-      <input class="photoInput" type="file" accept="image/*" capture="environment">
-      <div class="preview"></div>
-    </div>
-    <div class="photoBox">
-      <label>📷 Επιπλέον φωτογραφία</label>
-      <input class="photoInput" type="file" accept="image/*" capture="environment">
-      <div class="preview"></div>
-    </div>
-  </div>
-</div>
-<div class="item">
-  <div class="q">Όλα τα ανοιχτά Luxury maintenance items επανελέγχθηκαν και ενημερώθηκαν;</div>
-  <div class="opts">
-    <label><input class="status ok" type="radio" name="l3" value="OK"><span class="choice">OK</span></label>
-    <label><input class="status y" type="radio" name="l3" value="🟡"><span class="choice">🟡</span></label>
-    <label><input class="status r" type="radio" name="l3" value="🔴"><span class="choice">🔴</span></label>
-    <label><input class="status na" type="radio" name="l3" value="N/A"><span class="choice">N/A</span></label>
-  </div>
-  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
-  <label>Παρατήρηση</label>
-  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
-  <div class="photos">
-    <div class="photoBox">
-      <label>📷 Φωτογραφία</label>
-      <input class="photoInput" type="file" accept="image/*" capture="environment">
-      <div class="preview"></div>
-    </div>
-    <div class="photoBox">
-      <label>📷 Επιπλέον φωτογραφία</label>
-      <input class="photoInput" type="file" accept="image/*" capture="environment">
-      <div class="preview"></div>
-    </div>
-  </div>
-</div></section>
-
 <section class="card">
 <h2>4. Τελική Αναφορά</h2>
 <div class="grid">
-<div><label>Γενική κατάσταση</label><select id="overall"><option>OK</option><option>🟡 Κίτρινο</option><option>🔴 Κόκκινο</option></select></div>
+<div><label>Γενική κατάσταση</label><select id="overall" class="overallStatus"><option>OK ✓</option><option>Προσοχή ⚠️</option><option>Επείγον ⚠</option></select></div>
 <div><label>Ιδιοκτήτης ενημερώθηκε;</label><select id="owner"><option>Δεν απαιτήθηκε</option><option>Ναι</option><option>Όχι</option></select></div>
 </div>
-<label style="margin-top:10px">Συνολική παρατήρηση / επόμενο βήμα</label>
+<div id="summaryBox" class="summaryBox">
+<label>Συνολική παρατήρηση / επόμενο βήμα</label>
 <textarea id="summary"></textarea>
+</div>
 </section>
 
 <section class="card noPrint">
 <h2>5. Αποθήκευση Report</h2>
-<p class="note"><b>Δεν κρατά ιστορικό.</b> Οι φωτογραφίες της επίσκεψης εμφανίζονται μέσα στο PDF. Πατήστε το κουμπί και στο iPad χρησιμοποιήστε το Print/Share για να αποθηκεύσετε το report ως PDF με το όνομα που θέλετε.</p>
+
 <button class="primary" type="button" onclick="makePDF()">ΔΗΜΙΟΥΡΓΙΑ / ΑΠΟΘΗΚΕΥΣΗ PDF</button>
 <button class="secondary" type="button" onclick="location.reload()">ΝΕΑ ΚΑΘΑΡΗ ΕΠΙΣΚΕΨΗ</button>
 </section>
@@ -663,6 +599,24 @@ document.querySelectorAll('.status').forEach(function(r){
 });
 try{document.getElementById('date').valueAsDate=new Date()}catch(e){}
 
+const overallSelect=document.getElementById('overall');
+const summaryBox=document.getElementById('summaryBox');
+const summaryField=document.getElementById('summary');
+
+function toggleSummary(){
+  const needsSummary = overallSelect.value !== 'OK ✓';
+  summaryBox.classList.toggle('show', needsSummary);
+  summaryField.required = needsSummary;
+  if(!needsSummary) summaryField.value='';
+
+  overallSelect.classList.remove('statusOK','statusWarn','statusUrgent');
+  if(overallSelect.value.startsWith('Επείγον')) overallSelect.classList.add('statusUrgent');
+  else if(overallSelect.value.startsWith('Προσοχή')) overallSelect.classList.add('statusWarn');
+  else overallSelect.classList.add('statusOK');
+}
+overallSelect.addEventListener('change', toggleSummary);
+toggleSummary();
+
 async function makePDF(){
   const btn = document.querySelector('button.primary');
   const original = btn.textContent;
@@ -671,6 +625,12 @@ async function makePDF(){
 
   try{
     const plan = document.querySelector('input[name="plan"]:checked')?.id?.replace('plan','') || 'Basic';
+    const overallNow = document.getElementById('overall').value;
+    const summaryNow = document.getElementById('summary').value.trim();
+    if(overallNow !== 'OK ✓' && !summaryNow){
+      alert('Συμπληρώστε τη συνολική παρατήρηση / επόμενο βήμα πριν δημιουργήσετε το report.');
+      return;
+    }
     const property = document.getElementById('property').value || 'Home_Watch';
     const employee = document.getElementById('employee').value || '';
     const date = document.getElementById('date').value || '';
@@ -681,9 +641,8 @@ async function makePDF(){
     const summary = document.getElementById('summary').value || '';
 
     const activeSections = [document.querySelector('.basicSec')];
-    if(['Standard','Premium','Luxury'].includes(plan)) activeSections.push(document.querySelector('.standardSec'));
-    if(['Premium','Luxury'].includes(plan)) activeSections.push(document.querySelector('.premiumSec'));
-    if(plan==='Luxury') activeSections.push(document.querySelector('.luxurySec'));
+    if(['Standard','Premium'].includes(plan)) activeSections.push(document.querySelector('.standardSec'));
+    if(plan==='Premium') activeSections.push(document.querySelector('.premiumSec'));
 
     const items = [];
     for(const sec of activeSections){
@@ -707,10 +666,23 @@ async function makePDF(){
       canvas=document.createElement('canvas'); canvas.width=PW; canvas.height=PH;
       ctx=canvas.getContext('2d');
       ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,PW,PH);
-      ctx.fillStyle='#9a762d'; ctx.fillRect(0,0,PW,86);
-      ctx.fillStyle='#ffffff'; ctx.font='bold 34px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
-      ctx.fillText('HOME WATCH — VISIT REPORT',M,55);
-      y=125; lastSection='';
+
+      ctx.fillStyle='#003f42'; ctx.fillRect(0,0,PW,128);
+      ctx.fillStyle='#b28a43'; ctx.fillRect(0,124,PW,4);
+
+      ctx.fillStyle='#ffffff';
+      ctx.font='600 38px Georgia,"Times New Roman",serif';
+      ctx.fillText('K E D R O N',M,48);
+
+      ctx.fillStyle='#d6b36b';
+      ctx.font='16px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+      ctx.fillText('REAL ESTATE  ·  CONSTRUCTION  ·  PROPERTY MANAGEMENT',M,76);
+
+      ctx.fillStyle='#ffffff';
+      ctx.font='bold 25px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+      ctx.fillText('HOME WATCH — VISIT REPORT',M,108);
+
+      y=165;
       pages.push(canvas);
     }
     function wrap(str,maxWidth,font){
@@ -725,7 +697,7 @@ async function makePDF(){
       return lines;
     }
     function ensure(h){
-      if(y+h>PH-M){ newPage(); }
+      if(y+h>PH-M-60){ newPage(); }
     }
     function drawLines(str,x,width,font,color='#222',lh=30){
       const lines=wrap(str,width,font);
@@ -757,22 +729,28 @@ async function makePDF(){
     newPage();
     ctx.fillStyle='#222';
     ctx.font='bold 26px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
-    ctx.fillText(`${property} — ${plan}`,M,y); y+=42;
+    ctx.fillText(`${property}`,M,y); y+=42;
     drawLines(`Υπάλληλος: ${employee}   |   Ημερομηνία: ${date}   |   Άφιξη: ${arrival}   |   Αναχώρηση: ${departure}`,M,CW,'22px -apple-system,BlinkMacSystemFont,Arial,sans-serif','#444',29);
     y+=12;
-    ctx.strokeStyle='#d8d1c3'; ctx.beginPath(); ctx.moveTo(M,y); ctx.lineTo(PW-M,y); ctx.stroke(); y+=28;
+    ctx.strokeStyle='#b28a43'; ctx.beginPath(); ctx.moveTo(M,y); ctx.lineTo(PW-M,y); ctx.stroke(); y+=28;
 
     for(const it of items){
-      if(it.sectionTitle!==lastSection){
+      const clientSectionTitle =
+        it.sectionTitle.includes('BASIC') ? 'ΒΑΣΙΚΟΙ ΕΛΕΓΧΟΙ' :
+        it.sectionTitle.includes('STANDARD') ? 'ΑΝΑΛΥΤΙΚΟΙ ΕΛΕΓΧΟΙ' :
+        it.sectionTitle.includes('PREMIUM') ? 'ΠΡΟΛΗΠΤΙΚΟΣ ΕΛΕΓΧΟΣ & ΠΑΡΑΚΟΛΟΥΘΗΣΗ' :
+        it.sectionTitle;
+
+      if(clientSectionTitle!==lastSection){
         ensure(62);
-        ctx.fillStyle='#9a762d'; ctx.font='bold 25px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
-        ctx.fillText(it.sectionTitle,M,y); y+=40;
-        lastSection=it.sectionTitle;
+        ctx.fillStyle='#003f42'; ctx.font='bold 25px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+        ctx.fillText(clientSectionTitle,M,y); y+=40;
+        lastSection=clientSectionTitle;
       }
       ensure(120);
       drawLines(it.q,M,CW,'bold 22px -apple-system,BlinkMacSystemFont,Arial,sans-serif','#222',29);
       ctx.font='bold 21px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
-      ctx.fillStyle=it.result==='🔴'?'#a32929':it.result==='🟡'?'#8a6d00':'#333';
+      ctx.fillStyle=String(it.result).includes('Επείγον')?'#c62828':String(it.result).includes('Προσοχή')?'#8a6d00':String(it.result).startsWith('OK')?'#237a3b':'#333';
       ctx.fillText(`Αποτέλεσμα: ${it.result}`,M,y); y+=31;
       if(it.note){
         drawLines(`Παρατήρηση: ${it.note}`,M,CW,'20px -apple-system,BlinkMacSystemFont,Arial,sans-serif','#444',27);
@@ -785,11 +763,36 @@ async function makePDF(){
     }
 
     ensure(210);
-    ctx.fillStyle='#9a762d'; ctx.font='bold 25px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+    ctx.fillStyle='#003f42'; ctx.font='bold 25px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
     ctx.fillText('ΤΕΛΙΚΗ ΑΝΑΦΟΡΑ',M,y); y+=40;
-    drawLines(`Γενική κατάσταση: ${overall}`,M,CW,'bold 22px -apple-system,BlinkMacSystemFont,Arial,sans-serif','#222',29);
+    const overallPdfColor = String(overall).includes('Επείγον') ? '#c62828' : String(overall).includes('Προσοχή') ? '#8a6d00' : '#237a3b';
+     drawLines(`Γενική κατάσταση: ${overall}`,M,CW,'bold 22px -apple-system,BlinkMacSystemFont,Arial,sans-serif',overallPdfColor,29);
     drawLines(`Ιδιοκτήτης ενημερώθηκε: ${owner}`,M,CW,'22px -apple-system,BlinkMacSystemFont,Arial,sans-serif','#333',29);
     if(summary) drawLines(`Παρατήρηση / επόμενο βήμα: ${summary}`,M,CW,'22px -apple-system,BlinkMacSystemFont,Arial,sans-serif','#333',29);
+
+    // Add KEDRON footer to every PDF page
+    for(let pageIndex=0; pageIndex<pages.length; pageIndex++){
+      const pg=pages[pageIndex];
+      const fctx=pg.getContext('2d');
+      fctx.fillStyle='#003f42';
+      fctx.fillRect(0,PH-48,PW,48);
+      fctx.fillStyle='#b28a43';
+      fctx.fillRect(0,PH-51,PW,3);
+      fctx.fillStyle='#ffffff';
+      fctx.font='15px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+      fctx.fillText('KEDRON · HOME WATCH',M,PH-19);
+
+      fctx.textAlign='center';
+      fctx.fillStyle='#ffffff';
+      fctx.font='bold 15px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+      fctx.fillText(`Page ${pageIndex+1} / ${pages.length}`,PW/2,PH-19);
+
+      fctx.textAlign='right';
+      fctx.fillStyle='#d6b36b';
+      fctx.font='15px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+      fctx.fillText('kedronrealestate.gr',PW-M,PH-19);
+      fctx.textAlign='left';
+    }
 
     // Encode pages as JPEGs and assemble a real PDF.
     const jpegs=[];
