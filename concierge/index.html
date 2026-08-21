@@ -1,0 +1,1395 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>KEDRON Concierge Checklist → PDF</title>
+<style>
+:root{--teal:#003f42;--teal2:#0a5658;--gold:#b28a43;--cream:#f3efe4;--ink:#213132;--bg:#f3efe4;--line:#cbd1c8;--green:#dff2e6;--yellow:#fff3bf;--red:#f8d7da}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--teal);color:white;padding:14px 18px 13px;position:sticky;top:0;z-index:10;border-bottom:2px solid var(--gold);box-shadow:0 2px 10px rgba(0,0,0,.12)}
+header h1{font-size:21px;margin:6px 0 3px} header p{font-size:12px;margin:0;color:#d9e4e2}
+main{max-width:1000px;margin:auto;padding:12px}
+.card{background:white;border:1px solid var(--line);border-radius:14px;padding:15px;margin:12px 0}
+h2{font-size:18px;color:var(--teal);margin:0 0 10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{font-size:13px;font-weight:700;display:block;margin:0 0 5px}
+input,textarea,select{width:100%;font-size:16px;padding:10px;border:1px solid #cbc4b6;border-radius:9px;background:white}
+textarea{min-height:80px}
+.item{padding:13px 0;border-top:1px solid #ece7dc;break-inside:avoid}.item:first-child{border-top:0}
+.q{font-weight:700;font-size:15px;line-height:1.35;margin-bottom:9px}
+.opts{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:9px}
+.opts label{border:1px solid #cec6b8;border-radius:9px;padding:10px 4px;text-align:center;background:#fafafa;margin:0}
+.opts input{display:none}.choice{display:block;border-radius:7px;padding:4px}
+.ok:checked+.choice{background:var(--green);color:#237a3b;font-weight:800}.y:checked+.choice{background:var(--yellow);color:#8a6d00;font-weight:800}.r:checked+.choice{background:var(--red);color:#a32929;font-weight:800}.na:checked+.choice{background:#eee}
+.photos{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.photoBox{padding:9px;border:1px solid #e1dbcf;border-radius:9px;background:#faf9f6}
+.preview{display:none;margin-top:8px}.preview img{max-width:100%;max-height:260px;border-radius:8px;border:1px solid #ddd}
+.printResult{display:none}
+button{width:100%;padding:14px;border:0;border-radius:11px;font-size:16px;font-weight:800;margin:8px 0}
+.primary{background:var(--teal);color:white;border:1px solid var(--gold)}.secondary{background:#e3ddd0;color:var(--ink)}
+.note{font-size:12px;color:#666;line-height:1.45}
+.summaryBox{display:none;margin-top:10px}.summaryBox.show{display:block}
+.overallStatus.statusOK{color:#237a3b;font-weight:800;background:var(--green)}.overallStatus.statusWarn{color:#8a6d00;font-weight:800;background:var(--yellow)}.overallStatus.statusUrgent{color:#8b1e1e;font-weight:800;background:var(--red)}
+@media(max-width:700px){.grid,.photos{grid-template-columns:1fr}.tabs{grid-template-columns:repeat(3,1fr)}.opts{grid-template-columns:repeat(4,1fr)}main{padding:9px}}
+@media print{
+ body{background:white}
+ header{position:static;background:white;color:#003f42;border-bottom:2px solid #b28a43;box-shadow:none}
+ .noPrint,.tabs,.opts,.photoBox>label,.photoInput{display:none!important}
+ main{max-width:none;padding:0}
+ .card{border:0;border-radius:0;padding:7px 0;margin:0}
+ input,textarea,select{border:0;padding:0;font-size:11px;background:transparent;appearance:none;-webkit-appearance:none}
+ .printResult{display:block;font-size:11px;margin-bottom:4px}
+ .preview{display:block!important}
+ .preview img{max-height:210px}
+ .photoBox{border:0;background:white;padding:0}
+ .item{padding:8px 0;border-top:1px solid #ddd}
+ .q{font-size:12px}
+ h2{font-size:15px}
+ @page{size:A4;margin:11mm}
+}
+
+.brandLogo{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.brandName{font-family:Georgia,"Times New Roman",serif;font-size:29px;letter-spacing:9px;line-height:1;color:#fff}
+.brandLine{font-size:9px;letter-spacing:.5px;color:#d6b36b;text-transform:uppercase;margin-bottom:3px}
+
+
+.concSetup{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.concSetup label{border:1px solid #d6cfbf;border-radius:10px;padding:11px 10px;background:#faf9f6;font-weight:700;color:var(--teal);display:flex;gap:8px;align-items:center}
+.concSetup input{width:auto;accent-color:var(--teal)}
+.concSec{display:none}
+.concSec.show{display:block}
+.serviceBadge{display:inline-block;padding:7px 12px;border-radius:999px;background:var(--teal);color:white;border:1px solid var(--gold);font-weight:800}
+@media(max-width:700px){.concSetup{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<header>
+<div class="brandLogo">
+  <div class="brandName">KEDRON</div>
+  <div class="brandLine">Real Estate · Construction · Property Management</div>
+</div>
+<h1>CONCIERGE — CHECKLIST / REPORT</h1>
+
+</header>
+
+<div class="app"><main>
+<section class="card">
+<h2>1. Στοιχεία Εργασίας</h2>
+<div class="grid">
+<div><label>Property ID / Όνομα</label><input id="property"></div>
+<div><label>Υπηρεσία</label><div class="serviceBadge">CONCIERGE</div></div>
+<div><label>Υπάλληλος</label><input id="employee"></div>
+<div><label>Ημερομηνία</label><input id="date" type="date"></div>
+<div><label>Ώρα έναρξης</label><input id="arrival" type="time"></div>
+<div><label>Ώρα ολοκλήρωσης</label><input id="departure" type="time"></div>
+</div>
+</section>
+
+
+<section class="card noPrint">
+<h2>2. Επιλογή Concierge Υπηρεσιών</h2>
+<p class="note">Επιλέξτε μόνο τις υπηρεσίες που έχουν συμφωνηθεί για τη συγκεκριμένη εργασία.</p>
+<div class="concSetup">
+<label><input class="concToggle" type="checkbox" data-target="concCheckIn"> Check-In / Προετοιμασία Άφιξης</label>
+<label><input class="concToggle" type="checkbox" data-target="concCheckOut"> Check-Out / Κλείσιμο Αναχώρησης</label>
+<label><input class="concToggle" type="checkbox" data-target="concGroceries"> Grocery / Fridge Stocking</label>
+<label><input class="concToggle" type="checkbox" data-target="concLinen"> Linen / Beds / Laundry</label>
+<label><input class="concToggle" type="checkbox" data-target="concDeliveries"> Παραδόσεις / Παραλαβές</label>
+<label><input class="concToggle" type="checkbox" data-target="concErrands"> Errands / Εξωτερικές Δουλειές</label>
+<label><input class="concToggle" type="checkbox" data-target="concTransport"> Μεταφορές / Ραντεβού</label>
+<label><input class="concToggle" type="checkbox" data-target="concSpecial"> Ειδικά Αιτήματα</label>
+</div>
+</section>
+
+
+<section id="concCheckIn" class="card concSec"><h2>3A. Check-In / Προετοιμασία Άφιξης</h2>
+
+<div class="item">
+  <div class="q">Αερίστηκε το ακίνητο και έγινε βασικός οπτικός έλεγχος πριν την άφιξη;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="ci1" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="ci1" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="ci1" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="ci1" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Ρυθμίστηκαν ρολά / κουρτίνες / φωτισμός όπως έχει συμφωνηθεί;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="ci2" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="ci2" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="ci2" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="ci2" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Ρυθμίστηκε A/C ή θέρμανση στην συμφωνημένη θερμοκρασία;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="ci3" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="ci3" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="ci3" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="ci3" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Ελέγχθηκαν νερό, ρεύμα και βασικές λειτουργίες του ακινήτου;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="ci4" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="ci4" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="ci4" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="ci4" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Το ακίνητο είναι καθαρό, τακτοποιημένο και έτοιμο για άφιξη;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="ci5" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="ci5" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="ci5" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="ci5" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Τοποθετήθηκαν τυχόν συμφωνημένες προμήθειες / welcome items;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="ci6" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="ci6" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="ci6" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="ci6" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="concCheckOut" class="card concSec"><h2>3B. Check-Out / Κλείσιμο Αναχώρησης</h2>
+
+<div class="item">
+  <div class="q">Ελέγχθηκαν και ασφαλίστηκαν πόρτες, παράθυρα, ρολά και σημεία πρόσβασης;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="co1" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="co1" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="co1" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="co1" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Απενεργοποιήθηκαν ή ρυθμίστηκαν A/C, θέρμανση, φώτα και συσκευές όπως έχει συμφωνηθεί;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="co2" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="co2" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="co2" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="co2" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Απομακρύνθηκαν τρόφιμα / απορρίμματα που δεν πρέπει να παραμείνουν;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="co3" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="co3" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="co3" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="co3" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Ελέγχθηκαν νερό, εμφανείς διαρροές και βασικά υδραυλικά σημεία πριν το κλείσιμο;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="co4" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="co4" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="co4" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="co4" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Ολοκληρώθηκε τελικός οπτικός έλεγχος και το ακίνητο παραδόθηκε ασφαλές;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="co5" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="co5" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="co5" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="co5" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="concGroceries" class="card concSec"><h2>3C. Grocery / Fridge Stocking</h2>
+
+<div class="item">
+  <div class="q">Ελήφθη και επιβεβαιώθηκε η τελική λίστα αγορών από τον πελάτη;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="cg1" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="cg1" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="cg1" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="cg1" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Πραγματοποιήθηκαν οι συμφωνημένες αγορές χωρίς μη εγκεκριμένες αντικαταστάσεις;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="cg2" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="cg2" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="cg2" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="cg2" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Ελέγχθηκαν ποσότητες, συσκευασίες και ημερομηνίες λήξης όπου εφαρμόζεται;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="cg3" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="cg3" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="cg3" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="cg3" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Τα ψυχόμενα / κατεψυγμένα προϊόντα τοποθετήθηκαν άμεσα και σωστά;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="cg4" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="cg4" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="cg4" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="cg4" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Οι αγορές τοποθετήθηκαν στα συμφωνημένα σημεία του ακινήτου;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="cg5" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="cg5" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="cg5" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="cg5" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Καταγράφηκαν / αποθηκεύτηκαν οι αποδείξεις και τυχόν αποκλίσεις από τη λίστα;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="cg6" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="cg6" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="cg6" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="cg6" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="concLinen" class="card concSec"><h2>3D. Linen / Beds / Laundry</h2>
+
+<div class="item">
+  <div class="q">Υπάρχουν τα σωστά καθαρά σεντόνια, πετσέτες και λευκά είδη σύμφωνα με το αίτημα;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="cl1" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="cl1" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="cl1" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="cl1" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Τα συμφωνημένα κρεβάτια στρώθηκαν και οι χώροι προετοιμάστηκαν;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="cl2" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="cl2" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="cl2" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="cl2" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Τα χρησιμοποιημένα λευκά είδη συλλέχθηκαν / παραδόθηκαν για laundry όπου απαιτείται;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="cl3" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="cl3" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="cl3" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="cl3" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Τα καθαρά λευκά είδη αποθηκεύτηκαν σωστά μετά την ολοκλήρωση;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="cl4" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="cl4" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="cl4" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="cl4" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="concDeliveries" class="card concSec"><h2>3E. Παραδόσεις / Παραλαβές</h2>
+
+<div class="item">
+  <div class="q">Επιβεβαιώθηκε ο προμηθευτής, η ώρα και το αντικείμενο της παράδοσης / παραλαβής;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="cd1" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="cd1" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="cd1" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="cd1" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Παραλήφθηκε το σωστό αντικείμενο χωρίς εμφανή ζημιά ή έλλειψη;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="cd2" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="cd2" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="cd2" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="cd2" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Τοποθετήθηκε / αποθηκεύτηκε στο συμφωνημένο σημείο;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="cd3" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="cd3" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="cd3" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="cd3" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Καταγράφηκε οποιαδήποτε ζημιά, καθυστέρηση ή διαφορά και ενημερώθηκε ο πελάτης;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="cd4" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="cd4" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="cd4" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="cd4" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Ολοκληρώθηκε ασφαλές κλείσιμο του ακινήτου μετά την παράδοση / παραλαβή;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="cd5" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="cd5" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="cd5" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="cd5" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="concErrands" class="card concSec"><h2>3F. Errands / Εξωτερικές Δουλειές</h2>
+
+<div class="item">
+  <div class="q">Επιβεβαιώθηκε σαφώς το αίτημα, το σημείο, η προθεσμία και τυχόν όριο δαπάνης;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="ce1" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="ce1" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="ce1" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="ce1" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Ολοκληρώθηκε η συμφωνημένη εξωτερική δουλειά / αγορά / παραλαβή;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="ce2" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="ce2" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="ce2" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="ce2" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Συλλέχθηκαν αποδείξεις, παραστατικά ή έγγραφα όπου απαιτείται;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="ce3" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="ce3" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="ce3" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="ce3" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Ο πελάτης ενημερώθηκε για την ολοκλήρωση ή για οποιαδήποτε απόκλιση;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="ce4" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="ce4" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="ce4" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="ce4" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="concTransport" class="card concSec"><h2>3G. Μεταφορές / Ραντεβού</h2>
+
+<div class="item">
+  <div class="q">Επιβεβαιώθηκαν ημερομηνία, ώρα, στοιχεία επικοινωνίας και σημείο συνάντησης;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="ct1" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="ct1" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="ct1" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="ct1" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Επιβεβαιώθηκε ο οδηγός / συνεργάτης / ραντεβού πριν την ώρα εκτέλεσης;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="ct2" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="ct2" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="ct2" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="ct2" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Ο πελάτης έλαβε όλες τις απαραίτητες πληροφορίες επιβεβαίωσης;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="ct3" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="ct3" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="ct3" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="ct3" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Τυχόν αλλαγή ή καθυστέρηση καταγράφηκε και κοινοποιήθηκε έγκαιρα;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="ct4" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="ct4" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="ct4" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="ct4" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="concSpecial" class="card concSec"><h2>3H. Ειδικά Αιτήματα</h2>
+
+<div class="item">
+  <div class="q">Το ειδικό αίτημα έχει αποσαφηνιστεί και εγκριθεί πριν την εκτέλεση;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="cs1" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="cs1" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="cs1" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="cs1" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Η εργασία ολοκληρώθηκε σύμφωνα με τις γραπτές οδηγίες του πελάτη;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="cs2" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="cs2" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="cs2" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="cs2" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Καταγράφηκαν τυχόν πρόσθετα κόστη, αλλαγές ή προβλήματα;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="cs3" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="cs3" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="cs3" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="cs3" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+
+<div class="item">
+  <div class="q">Έγινε τελική ενημέρωση του πελάτη με αποτέλεσμα / φωτογραφίες όπου απαιτείται;</div>
+  <div class="opts">
+    <label><input class="status ok" type="radio" name="cs4" value="Ολοκληρώθηκε ✓"><span class="choice">Ολοκληρώθηκε ✓</span></label>
+    <label><input class="status y" type="radio" name="cs4" value="Μερικώς"><span class="choice">Μερικώς</span></label>
+    <label><input class="status r" type="radio" name="cs4" value="Δεν ολοκληρώθηκε ✕"><span class="choice">Δεν ολοκληρώθηκε ✕</span></label>
+    <label><input class="status na" type="radio" name="cs4" value="N/A"><span class="choice">N/A</span></label>
+  </div>
+  <div class="printResult"><b>Αποτέλεσμα:</b> <span>—</span></div>
+  <label>Παρατήρηση</label>
+  <input class="noteInput" type="text" placeholder="Προαιρετική σημείωση">
+  <div class="photos">
+    <div class="photoBox">
+      <label>📷 Φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+    <div class="photoBox">
+      <label>📷 Επιπλέον φωτογραφία</label>
+      <input class="photoInput" type="file" accept="image/*" capture="environment">
+      <div class="preview"></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="card">
+<h2>4. Τελική Αναφορά</h2>
+<div class="grid">
+<div><label>Κατάσταση εργασίας</label><select id="overall" class="overallStatus"><option>Ολοκληρώθηκε ✓</option><option>Μερικώς ολοκληρώθηκε</option><option>Δεν ολοκληρώθηκε ✕</option></select></div>
+<div><label>Ιδιοκτήτης ενημερώθηκε;</label><select id="owner"><option>Δεν απαιτήθηκε</option><option>Ναι</option><option>Όχι</option></select></div>
+</div>
+<div id="summaryBox" class="summaryBox">
+<label>Εκκρεμότητα / Αιτία / Επόμενο βήμα</label>
+<textarea id="summary"></textarea>
+</div>
+</section>
+
+<section class="card noPrint">
+<h2>5. Αποθήκευση Report</h2>
+
+<button class="primary" type="button" onclick="makePDF()">ΔΗΜΙΟΥΡΓΙΑ / ΑΠΟΘΗΚΕΥΣΗ PDF</button>
+<button class="secondary" type="button" onclick="location.reload()">ΝΕΑ ΚΑΘΑΡΗ ΕΠΙΣΚΕΨΗ</button>
+</section>
+</main></div>
+
+<script>
+document.querySelectorAll('.concToggle').forEach(function(cb){
+  cb.addEventListener('change',function(){
+    const sec=document.getElementById(this.dataset.target);
+    if(sec) sec.classList.toggle('show',this.checked);
+  });
+});
+document.querySelectorAll('.photoInput').forEach(function(inp){
+ inp.addEventListener('change',function(){
+   var file=this.files&&this.files[0], prev=this.parentElement.querySelector('.preview');
+   prev.innerHTML='';
+   if(!file){prev.style.display='none';return}
+   var reader=new FileReader();
+   reader.onload=function(e){var img=document.createElement('img');img.src=e.target.result;prev.appendChild(img);prev.style.display='block'}
+   reader.readAsDataURL(file);
+ });
+});
+document.querySelectorAll('.status').forEach(function(r){
+ r.addEventListener('change',function(){
+   var item=this.closest('.item');
+   item.querySelector('.printResult span').textContent=this.value;
+ });
+});
+try{document.getElementById('date').valueAsDate=new Date()}catch(e){}
+
+const overallSelect=document.getElementById('overall');
+const summaryBox=document.getElementById('summaryBox');
+const summaryField=document.getElementById('summary');
+
+function toggleSummary(){
+  const needsSummary = overallSelect.value !== 'Ολοκληρώθηκε ✓';
+  summaryBox.classList.toggle('show', needsSummary);
+  summaryField.required = needsSummary;
+  if(!needsSummary) summaryField.value='';
+
+  overallSelect.classList.remove('statusOK','statusWarn','statusUrgent');
+  if(overallSelect.value.startsWith('Δεν ολοκληρώθηκε')) overallSelect.classList.add('statusUrgent');
+  else if(overallSelect.value.startsWith('Μερικώς')) overallSelect.classList.add('statusWarn');
+  else overallSelect.classList.add('statusOK');
+}
+overallSelect.addEventListener('change', toggleSummary);
+toggleSummary();
+
+async function makePDF(){
+  const btn = document.querySelector('button.primary');
+  const original = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'ΔΗΜΙΟΥΡΓΙΑ PDF...';
+
+  try{
+    const plan = 'Concierge';
+    const overallNow = document.getElementById('overall').value;
+    const summaryNow = document.getElementById('summary').value.trim();
+    if(overallNow !== 'Ολοκληρώθηκε ✓' && !summaryNow){
+      alert('Συμπληρώστε την εκκρεμότητα / αιτία / επόμενο βήμα πριν δημιουργήσετε το report.');
+      return;
+    }
+    const property = document.getElementById('property').value || 'Home_Watch';
+    const employee = document.getElementById('employee').value || '';
+    const date = document.getElementById('date').value || '';
+    const arrival = document.getElementById('arrival').value || '';
+    const departure = document.getElementById('departure').value || '';
+    const overall = document.getElementById('overall').value || '';
+    const owner = document.getElementById('owner').value || '';
+    const summary = document.getElementById('summary').value || '';
+
+    const activeSections = [];
+    document.querySelectorAll('.concToggle:checked').forEach(function(cb){
+      const sec=document.getElementById(cb.dataset.target);
+      if(sec) activeSections.push(sec);
+    });
+
+    const items = [];
+    for(const sec of activeSections){
+      const sectionTitle = sec.querySelector('h2')?.textContent || '';
+      for(const item of sec.querySelectorAll('.item')){
+        const q = item.querySelector('.q')?.textContent || '';
+        const checked = item.querySelector('.status:checked');
+        const result = checked ? checked.value : '—';
+        const note = item.querySelector('.noteInput')?.value || '';
+        const files = [...item.querySelectorAll('.photoInput')].map(x=>x.files?.[0]).filter(Boolean);
+        items.push({sectionTitle,q,result,note,files});
+      }
+    }
+
+    // A4-ish canvas at 150 dpi. Each canvas becomes one PDF page image.
+    const PW=1240, PH=1754, M=70, CW=PW-2*M;
+    const pages=[];
+    let canvas,ctx,y,lastSection='';
+
+    function newPage(){
+      canvas=document.createElement('canvas'); canvas.width=PW; canvas.height=PH;
+      ctx=canvas.getContext('2d');
+      ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,PW,PH);
+
+      ctx.fillStyle='#003f42'; ctx.fillRect(0,0,PW,128);
+      ctx.fillStyle='#b28a43'; ctx.fillRect(0,124,PW,4);
+
+      ctx.fillStyle='#ffffff';
+      ctx.font='600 38px Georgia,"Times New Roman",serif';
+      ctx.fillText('K E D R O N',M,48);
+
+      ctx.fillStyle='#d6b36b';
+      ctx.font='16px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+      ctx.fillText('REAL ESTATE  ·  CONSTRUCTION  ·  PROPERTY MANAGEMENT',M,76);
+
+      ctx.fillStyle='#ffffff';
+      ctx.font='bold 25px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+      ctx.fillText('CONCIERGE — SERVICE REPORT',M,108);
+
+      y=165;
+      pages.push(canvas);
+    }
+    function wrap(str,maxWidth,font){
+      ctx.font=font;
+      const words=String(str||'').split(/\s+/); const lines=[]; let line='';
+      for(const w of words){
+        const test=line ? line+' '+w : w;
+        if(ctx.measureText(test).width<=maxWidth) line=test;
+        else { if(line) lines.push(line); line=w; }
+      }
+      if(line) lines.push(line);
+      return lines;
+    }
+    function ensure(h){
+      if(y+h>PH-M-60){ newPage(); }
+    }
+    function drawLines(str,x,width,font,color='#222',lh=30){
+      const lines=wrap(str,width,font);
+      ensure(lines.length*lh+8);
+      ctx.font=font; ctx.fillStyle=color;
+      for(const line of lines){ ctx.fillText(line,x,y); y+=lh; }
+      return lines.length;
+    }
+    async function fileToImage(file){
+      return new Promise((resolve,reject)=>{
+        const r=new FileReader();
+        r.onload=e=>{
+          const im=new Image();
+          im.onload=()=>resolve(im); im.onerror=reject; im.src=e.target.result;
+        };
+        r.onerror=reject; r.readAsDataURL(file);
+      });
+    }
+    function drawImageFit(img){
+      const maxW=CW, maxH=430;
+      let w=img.naturalWidth||img.width, h=img.naturalHeight||img.height;
+      const sc=Math.min(maxW/w,maxH/h,1);
+      w*=sc; h*=sc;
+      ensure(h+24);
+      ctx.drawImage(img,M,y,w,h);
+      y+=h+20;
+    }
+
+    newPage();
+    ctx.fillStyle='#222';
+    ctx.font='bold 26px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+    ctx.fillText(`${property}`,M,y); y+=42;
+    drawLines(`Υπάλληλος: ${employee}   |   Ημερομηνία: ${date}   |   Άφιξη: ${arrival}   |   Αναχώρηση: ${departure}`,M,CW,'22px -apple-system,BlinkMacSystemFont,Arial,sans-serif','#444',29);
+    y+=12;
+    ctx.strokeStyle='#b28a43'; ctx.beginPath(); ctx.moveTo(M,y); ctx.lineTo(PW-M,y); ctx.stroke(); y+=28;
+
+    for(const it of items){
+      const clientSectionTitle = it.sectionTitle.replace(/^3[A-H]\.\s*/, '').toUpperCase();
+
+      if(clientSectionTitle!==lastSection){
+        ensure(62);
+        ctx.fillStyle='#003f42'; ctx.font='bold 25px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+        ctx.fillText(clientSectionTitle,M,y); y+=40;
+        lastSection=clientSectionTitle;
+      }
+      ensure(120);
+      drawLines(it.q,M,CW,'bold 22px -apple-system,BlinkMacSystemFont,Arial,sans-serif','#222',29);
+      ctx.font='bold 21px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+      ctx.fillStyle=String(it.result).includes('Δεν ολοκληρώθηκε')?'#c62828':String(it.result).includes('Μερικώς')?'#8a6d00':String(it.result).startsWith('Ολοκληρώθηκε')?'#237a3b':'#333';
+      ctx.fillText(`Αποτέλεσμα: ${it.result}`,M,y); y+=31;
+      if(it.note){
+        drawLines(`Παρατήρηση: ${it.note}`,M,CW,'20px -apple-system,BlinkMacSystemFont,Arial,sans-serif','#444',27);
+      }
+      for(const f of it.files){
+        try{ const im=await fileToImage(f); drawImageFit(im); }catch(e){}
+      }
+      y+=14;
+      ctx.strokeStyle='#e2ddd3'; ctx.beginPath(); ctx.moveTo(M,y); ctx.lineTo(PW-M,y); ctx.stroke(); y+=25;
+    }
+
+    ensure(210);
+    ctx.fillStyle='#003f42'; ctx.font='bold 25px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+    ctx.fillText('ΤΕΛΙΚΗ ΑΝΑΦΟΡΑ',M,y); y+=40;
+    const overallPdfColor = String(overall).includes('Δεν ολοκληρώθηκε') ? '#c62828' : String(overall).includes('Μερικώς') ? '#8a6d00' : '#237a3b';
+     drawLines(`Κατάσταση εργασίας: ${overall}`,M,CW,'bold 22px -apple-system,BlinkMacSystemFont,Arial,sans-serif',overallPdfColor,29);
+    drawLines(`Ιδιοκτήτης ενημερώθηκε: ${owner}`,M,CW,'22px -apple-system,BlinkMacSystemFont,Arial,sans-serif','#333',29);
+    if(summary) drawLines(`Εκκρεμότητα / Αιτία / Επόμενο βήμα: ${summary}`,M,CW,'22px -apple-system,BlinkMacSystemFont,Arial,sans-serif','#333',29);
+
+    // Add KEDRON footer to every PDF page
+    for(let pageIndex=0; pageIndex<pages.length; pageIndex++){
+      const pg=pages[pageIndex];
+      const fctx=pg.getContext('2d');
+      fctx.fillStyle='#003f42';
+      fctx.fillRect(0,PH-48,PW,48);
+      fctx.fillStyle='#b28a43';
+      fctx.fillRect(0,PH-51,PW,3);
+      fctx.fillStyle='#ffffff';
+      fctx.font='15px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+      fctx.fillText('KEDRON · CONCIERGE',M,PH-19);
+
+      fctx.textAlign='center';
+      fctx.fillStyle='#ffffff';
+      fctx.font='bold 15px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+      fctx.fillText(`Page ${pageIndex+1} / ${pages.length}`,PW/2,PH-19);
+
+      fctx.textAlign='right';
+      fctx.fillStyle='#d6b36b';
+      fctx.font='15px -apple-system,BlinkMacSystemFont,Arial,sans-serif';
+      fctx.fillText('kedronrealestate.gr',PW-M,PH-19);
+      fctx.textAlign='left';
+    }
+
+    // Encode pages as JPEGs and assemble a real PDF.
+    const jpegs=[];
+    for(const pg of pages){
+      const data=pg.toDataURL('image/jpeg',0.84).split(',')[1];
+      const bin=atob(data); const arr=new Uint8Array(bin.length);
+      for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
+      jpegs.push(arr);
+    }
+
+    function bytes(s){ return new TextEncoder().encode(s); }
+    const objects=[null]; // 1-based
+    const pageIds=[], imageIds=[], contentIds=[];
+    const pagesId=2, catalogId=1;
+
+    // Reserve IDs
+    let next=3;
+    for(let i=0;i<jpegs.length;i++){
+      pageIds.push(next++); imageIds.push(next++); contentIds.push(next++);
+    }
+    objects[catalogId]=bytes(`<< /Type /Catalog /Pages ${pagesId} 0 R >>`);
+    objects[pagesId]=bytes(`<< /Type /Pages /Count ${jpegs.length} /Kids [${pageIds.map(id=>id+' 0 R').join(' ')}] >>`);
+
+    for(let i=0;i<jpegs.length;i++){
+      const pageId=pageIds[i], imageId=imageIds[i], contentId=contentIds[i];
+      const img=jpegs[i];
+      const imgHead=bytes(`<< /Type /XObject /Subtype /Image /Width ${PW} /Height ${PH} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${img.length} >>\nstream\n`);
+      const imgTail=bytes(`\nendstream`);
+      const imgObj=new Uint8Array(imgHead.length+img.length+imgTail.length);
+      imgObj.set(imgHead,0); imgObj.set(img,imgHead.length); imgObj.set(imgTail,imgHead.length+img.length);
+      objects[imageId]=imgObj;
+
+      const stream=`q\n595 0 0 842 0 0 cm\n/Im${i+1} Do\nQ`;
+      const sb=bytes(stream);
+      const ch=bytes(`<< /Length ${sb.length} >>\nstream\n`);
+      const ct=bytes(`\nendstream`);
+      const co=new Uint8Array(ch.length+sb.length+ct.length); co.set(ch); co.set(sb,ch.length); co.set(ct,ch.length+sb.length);
+      objects[contentId]=co;
+      objects[pageId]=bytes(`<< /Type /Page /Parent ${pagesId} 0 R /MediaBox [0 0 595 842] /Resources << /XObject << /Im${i+1} ${imageId} 0 R >> >> /Contents ${contentId} 0 R >>`);
+    }
+
+    const parts=[bytes('%PDF-1.4\n%\xE2\xE3\xCF\xD3\n')];
+    const offsets=[0]; let total=parts[0].length;
+    for(let id=1;id<objects.length;id++){
+      offsets[id]=total;
+      const head=bytes(`${id} 0 obj\n`), tail=bytes(`\nendobj\n`);
+      parts.push(head,objects[id],tail);
+      total+=head.length+objects[id].length+tail.length;
+    }
+    const xrefOffset=total;
+    let xref=`xref\n0 ${objects.length}\n0000000000 65535 f \n`;
+    for(let id=1;id<objects.length;id++) xref+=String(offsets[id]).padStart(10,'0')+' 00000 n \n';
+    xref+=`trailer\n<< /Size ${objects.length} /Root ${catalogId} 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`;
+    parts.push(bytes(xref));
+
+    const blob=new Blob(parts,{type:'application/pdf'});
+    const clean=(property+'_'+date+'_Concierge_Report').replace(/[^\w\-]+/g,'_');
+    const file=new File([blob],clean+'.pdf',{type:'application/pdf'});
+
+    if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+      await navigator.share({files:[file],title:'Concierge Report'});
+    }else{
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a');
+      a.href=url; a.download=file.name;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),5000);
+    }
+  }catch(err){
+    alert('Δεν ήταν δυνατή η δημιουργία PDF σε αυτή τη συσκευή: '+err.message);
+  }finally{
+    btn.disabled=false;
+    btn.textContent=original;
+  }
+}
+</script>
+</body></html>
